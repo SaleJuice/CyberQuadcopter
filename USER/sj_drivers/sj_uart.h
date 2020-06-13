@@ -113,3 +113,9 @@ void Usart_SendString( USART_TypeDef * pUSARTx, char *str);
 void Usart_SendHalfWord( USART_TypeDef * pUSARTx, uint16_t ch);
 
 #endif /*SJ_UART_H*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

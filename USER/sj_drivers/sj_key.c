@@ -27,9 +27,6 @@ void KEY_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);	//使能复用时钟
-	//GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);//禁用JTAG
-	
 	RCC_APB2PeriphClockCmd(KEY_GPIO_RCC, ENABLE);			//使能时钟,stm32配置外设时必须先使能外设时钟	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 			//设置成上拉输入
 	GPIO_InitStructure.GPIO_Pin  = KEY1_GPIO_PIN;
@@ -50,17 +47,6 @@ void KEY_Config(void)
 	GPIO_InitStructure.GPIO_Pin  = KEY6_GPIO_PIN;
 	GPIO_Init(KEY6_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
 }
-
-////简单延时
-//static void KeyDelay(unsigned int ms)
-//{
-//	unsigned int a;
-//    while(ms--)
-//    {
-//        a = 6675;
-//        while(a--);
-//    }
-//}
 
 /*
 * @func 扫描单个按键

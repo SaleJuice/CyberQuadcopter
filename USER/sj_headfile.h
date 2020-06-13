@@ -33,15 +33,19 @@ typedef struct
   float z;//z轴向-高度
 } _XYZ_Float_;
 
-#include "math.h"
-#include "string.h"
-#include "stdlib.h"
-#include "stdint.h"
+//self
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
 
+//api
 #include "sj_iic.h"
 #include "sj_pid.h"
 #include "sj_filter.h"
+#include "sj_math.h"
 
+//driver
 #include "sj_led.h"
 #include "sj_key.h"
 #include "sj_pwm.h"
@@ -53,6 +57,7 @@ typedef struct
 #include "sj_bmp280.h"
 #include "sj_uartmodule.h"
 
+//app
 #include "app_dataget.h"
 #include "app_mcudeal.h"
 #include "app_motorctrl.h"

@@ -108,12 +108,11 @@ void PWM_Operate(int port,int duty)
 		case 4:
 			TIM3->CCR4=duty;
 			break;
-
-		default:
-			TIM3->CCR1=duty;
-			TIM3->CCR2=duty;
-			TIM3->CCR3=duty;
-			TIM3->CCR4=duty;
-			break;
 		}
 }
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

@@ -1,5 +1,8 @@
 .\obj\sj_bmp280.o: ..\USER\sj_drivers\sj_bmp280.c
 .\obj\sj_bmp280.o: ..\USER\sj_drivers\sj_bmp280.h
+.\obj\sj_bmp280.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\obj\sj_bmp280.o: ..\USER\sj_api\sj_math.h
+.\obj\sj_bmp280.o: ..\USER\sj_api\sj_filter.h
 .\obj\sj_bmp280.o: ..\USER\sj_api\sj_iic.h
 .\obj\sj_bmp280.o: ..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 .\obj\sj_bmp280.o: ..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
@@ -14,4 +17,3 @@
 .\obj\sj_bmp280.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h
 .\obj\sj_bmp280.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\obj\sj_bmp280.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\obj\sj_bmp280.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

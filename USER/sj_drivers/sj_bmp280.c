@@ -3,7 +3,6 @@
 //
 
 #include "sj_bmp280.h"
-#include <math.h>
 
 /*bmp280*/
 #define BMP280_PRESSURE_OSR (BMP280_OVERSAMP_8X)
@@ -37,49 +36,49 @@ static int bmp280RawTemperature = 0;
 
 int BMP280_Config(void)
 {
-  //simiic_write_reg(BMP280_ADDR, BMP280_RST_REG, 0xB6);
-  bmp280ID = simiic_read_reg(BMP280_ADDR, BMP280_CHIP_ID, IIC);
+  //iic_write_reg(BMP280_ADDR, BMP280_RST_REG, 0xB6);
+  bmp280ID = iic_read_reg(BMP280_ADDR, BMP280_CHIP_ID, IIC);
 
-  //simiic_read_regs(BMP280_ADDR, BMP280_TEMPERATURE_CALIB_DIG_T1_LSB_REG, bmp280cal, 12, IIC);
-  simiic_write_reg(BMP280_ADDR, BMP280_CTRL_MEAS_REG, BMP280_MODE);
-  simiic_write_reg(BMP280_ADDR, BMP280_CONFIG_REG, 5 << 2);
+  //iic_read_regs(BMP280_ADDR, BMP280_TEMPERATURE_CALIB_DIG_T1_LSB_REG, bmp280cal, 12, IIC);
+  iic_write_reg(BMP280_ADDR, BMP280_CTRL_MEAS_REG, BMP280_MODE);
+  iic_write_reg(BMP280_ADDR, BMP280_CONFIG_REG, 5 << 2);
 
   unsigned char byte1, byte2;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x88, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x89, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x88, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x89, IIC);
   bmp280Cal.dig_T1 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x8A, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x8B, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x8A, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x8B, IIC);
   bmp280Cal.dig_T2 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x8C, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x8D, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x8C, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x8D, IIC);
   bmp280Cal.dig_T3 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x8E, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x8F, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x8E, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x8F, IIC);
   bmp280Cal.dig_P1 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x90, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x91, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x90, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x91, IIC);
   bmp280Cal.dig_P2 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x92, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x93, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x92, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x93, IIC);
   bmp280Cal.dig_P3 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x94, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x95, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x94, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x95, IIC);
   bmp280Cal.dig_P4 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x96, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x97, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x96, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x97, IIC);
   bmp280Cal.dig_P5 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x98, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x99, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x98, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x99, IIC);
   bmp280Cal.dig_P6 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x9A, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x9B, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x9A, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x9B, IIC);
   bmp280Cal.dig_P7 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x9C, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x9D, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x9C, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x9D, IIC);
   bmp280Cal.dig_P8 = byte2 << 8 | byte1;
-  byte1 = simiic_read_reg(BMP280_ADDR, 0x9E, IIC);
-  byte2 = simiic_read_reg(BMP280_ADDR, 0x9F, IIC);
+  byte1 = iic_read_reg(BMP280_ADDR, 0x9E, IIC);
+  byte2 = iic_read_reg(BMP280_ADDR, 0x9F, IIC);
   bmp280Cal.dig_P9 = byte2 << 8 | byte1;
 
   bmp280Cal.dig_T1 = 27504;
@@ -103,7 +102,7 @@ static void bmp280GetPressure(void)
   int data[BMP280_DATA_FRAME_SIZE];
 
   // read data from sensor
-  simiic_read_regs(BMP280_ADDR, BMP280_PRESSURE_MSB_REG, data, BMP280_DATA_FRAME_SIZE, IIC);
+  iic_read_regs(BMP280_ADDR, BMP280_PRESSURE_MSB_REG, data, BMP280_DATA_FRAME_SIZE, IIC);
   bmp280RawPressure = (int)((((uint32_t)(data[0])) << 12) | (((uint32_t)(data[1])) << 4) | ((uint32_t)data[2] >> 4));
   bmp280RawTemperature = (int)((((uint32_t)(data[3])) << 12) | (((uint32_t)(data[4])) << 4) | ((uint32_t)data[5] >> 4));
 }

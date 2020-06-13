@@ -20,6 +20,7 @@
 .\obj\app_dataget.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\obj\app_dataget.o: ..\USER\sj_api\sj_pid.h
 .\obj\app_dataget.o: ..\USER\sj_api\sj_filter.h
+.\obj\app_dataget.o: ..\USER\sj_api\sj_math.h
 .\obj\app_dataget.o: ..\USER\sj_drivers\sj_led.h
 .\obj\app_dataget.o: ..\USER\sj_drivers\sj_key.h
 .\obj\app_dataget.o: ..\USER\sj_drivers\sj_pwm.h

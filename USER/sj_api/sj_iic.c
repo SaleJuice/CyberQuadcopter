@@ -19,7 +19,7 @@ unsigned char IIC_num;     //发送|接收数据个数
 //  @since      v1.0
 //  Sample usage:				如果IIC通讯失败可以尝试增加j的值
 //-------------------------------------------------------------------------------------------------------------------
-void simiic_delay(void)
+void iic_delay(void)
 {
   //j=10通讯速率大约为100K （内核频率40M）
   //j=0 通讯速率大约为140K （内核频率40M）
@@ -33,9 +33,9 @@ void IIC_start(void)//iicDevStart
 {
   SDA1();
   SCL1();
-  simiic_delay();
+  iic_delay();
   SDA0();
-  simiic_delay();
+  iic_delay();
   SCL0();
 }
 
@@ -44,11 +44,11 @@ void IIC_stop(void)//iicDevStop
 {
   SDA0();
   SCL0();
-  simiic_delay();
+  iic_delay();
   SCL1();
-  simiic_delay();
+  iic_delay();
   SDA1();
-  simiic_delay();
+  iic_delay();
 }
 
 //主应答(包含ack:SDA=0和no_ack:SDA=0)
@@ -56,14 +56,14 @@ void IIC_stop(void)//iicDevStop
 void I2C_SendACK(unsigned char ack_dat)//iicDevAck
 {
   SCL0();
-  simiic_delay();
+  iic_delay();
   if (ack_dat) SDA0();
   else    	SDA1();
 
   SCL1();
-  simiic_delay();
+  iic_delay();
   SCL0();
-  simiic_delay();
+  iic_delay();
 }
 
 
@@ -71,10 +71,10 @@ static int SCCB_WaitAck(void)//iicDevWaitAck
 {
   SCL0();
   //DIR_IN();
-  simiic_delay();
+  iic_delay();
 
   SCL1();
-  simiic_delay();
+  iic_delay();
 
   if (SDA)          //应答为高电平，异常，通信失败
   {
@@ -84,7 +84,7 @@ static int SCCB_WaitAck(void)//iicDevWaitAck
   }
   //DIR_OUT();
   SCL0();
-  simiic_delay();
+  iic_delay();
   return 1;
 }
 
@@ -100,9 +100,9 @@ void send_ch(unsigned char c)//iicDevSendByte
     if (c & 0x80)	SDA1(); //SDA 输出数据
     else			SDA0();
     c <<= 1;
-    simiic_delay();
+    iic_delay();
     SCL1();                //SCL 拉高，采集信号
-    simiic_delay();
+    iic_delay();
     SCL0();                //SCL 时钟线拉低
   }
   SCCB_WaitAck();
@@ -117,22 +117,22 @@ unsigned char read_ch(unsigned char ack_x)//iicDevReadByte
   unsigned char c;
   c = 0;
   SCL0();
-  simiic_delay();
+  iic_delay();
   SDA1();             //置数据线为输入方式
   //DIR_IN();
   for (i = 0; i < 8; i++)
   {
-    simiic_delay();
+    iic_delay();
     SCL0();         //置时钟线为低，准备接收数据位
-    simiic_delay();
+    iic_delay();
     SCL1();         //置时钟线为高，使数据线上数据有效
-    simiic_delay();
+    iic_delay();
     c <<= 1;
     if (SDA) c += 1; //读数据位，将接收的数据存c
   }
   //DIR_OUT();
   SCL0();
-  simiic_delay();
+  iic_delay();
   I2C_SendACK(ack_x);
 
   return c;
@@ -164,7 +164,7 @@ void IIC_Config(void)
 	IIC_stop();
 }
 
-void simiic_write_reg(unsigned char dev_add, unsigned char reg, unsigned char dat)
+void iic_write_reg(unsigned char dev_add, unsigned char reg, unsigned char dat)
 {
   IIC_start();
   send_ch( (dev_add << 1) | 0x00); //发送器件地址加写位
@@ -183,7 +183,7 @@ void simiic_write_reg(unsigned char dev_add, unsigned char reg, unsigned char da
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
-unsigned char simiic_read_reg(unsigned char dev_add, unsigned char reg, IIC_type type)
+unsigned char iic_read_reg(unsigned char dev_add, unsigned char reg, IIC_type type)
 {
   unsigned char dat;
   IIC_start();
@@ -210,7 +210,7 @@ unsigned char simiic_read_reg(unsigned char dev_add, unsigned char reg, IIC_type
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
-void simiic_read_regs(unsigned char dev_add, unsigned char reg, int *dat_add, unsigned char num, IIC_type type)
+void iic_read_regs(unsigned char dev_add, unsigned char reg, int *dat_add, unsigned char num, IIC_type type)
 {
   IIC_start();
   send_ch( (dev_add << 1) | 0x00); //发送器件地址加写位
@@ -227,3 +227,9 @@ void simiic_read_regs(unsigned char dev_add, unsigned char reg, int *dat_add, un
   *dat_add = read_ch(no_ack); //读取数据
   IIC_stop();
 }
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

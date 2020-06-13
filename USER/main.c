@@ -39,8 +39,6 @@ void SoftWareInit(void)
 	//PPM_Config(); //PPM信号输入捕获
 	CyberDataInit();//系统参数初始化
 	PidDataInit();
-	ControlArithmeticInit();
-	
 }
 
 //主函数

@@ -428,6 +428,26 @@
               <FilePath>..\USER\stm32f10x_conf.h</FilePath>
             </File>
             <File>
+              <FileName>sj_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sj_api\sj_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>sj_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sj_api\sj_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>sj_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sj_api\sj_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>sj_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\sj_api\sj_pid.c</FilePath>
+            </File>
+            <File>
               <FileName>sj_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\sj_drivers\sj_led.c</FilePath>
@@ -458,11 +478,6 @@
               <FilePath>..\USER\sj_drivers\sj_tim.c</FilePath>
             </File>
             <File>
-              <FileName>sj_filter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\sj_api\sj_filter.c</FilePath>
-            </File>
-            <File>
               <FileName>sj_oled.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\sj_drivers\sj_oled.c</FilePath>
@@ -471,16 +486,6 @@
               <FileName>sj_mpu9250.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\sj_drivers\sj_mpu9250.c</FilePath>
-            </File>
-            <File>
-              <FileName>sj_iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\sj_api\sj_iic.c</FilePath>
-            </File>
-            <File>
-              <FileName>sj_pid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\sj_api\sj_pid.c</FilePath>
             </File>
             <File>
               <FileName>sj_bmp280.c</FileName>

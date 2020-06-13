@@ -3,7 +3,6 @@
 //
 
 #include "sj_filter.h"
-#include "math.h"
 
 Butter_Parameter Bandstop_Filter_Parameter_30_98={
   //200hz---30hz-98hz  采样-阻带
@@ -42,14 +41,13 @@ void Set_Cutoff_Frequency(float sample_frequent, float cutoff_frequent,Butter_Pa
 
 /*************************************************
 函数名:	float LPButterworth(float curr_input,Butter_BufferData *Buffer,Butter_Parameter *Parameter)
-说明:	加速度计低通滤波器
+说明:	低通滤波器
 入口:	float curr_input 当前输入加速度计,滤波器参数，滤波器缓存
 出口:	无
 备注:	2阶Butterworth低通滤波器
 *************************************************/
 float LPButterworth(float curr_input,Butter_BufferData *Buffer,Butter_Parameter *Parameter)
 {
-  /* 加速度计Butterworth滤波 */
   /* 获取最新x(n) */
   Buffer->Input_Butter[2]=curr_input;
   /* Butterworth滤波 */
@@ -67,3 +65,9 @@ float LPButterworth(float curr_input,Butter_BufferData *Buffer,Butter_Parameter 
   Buffer->Output_Butter[1]=Buffer->Output_Butter[2];
   return Buffer->Output_Butter[2];
 }
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

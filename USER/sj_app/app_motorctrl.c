@@ -30,10 +30,10 @@ void MotorPwmOutputControl(void)
     }
     else
     {
-      PWM_Operate(1, (Motor[0]+1000));
-      PWM_Operate(2, (Motor[1]+1000));
-      PWM_Operate(3, (Motor[2]+1000));
-      PWM_Operate(4, (Motor[3]+1000));
+      PWM_Operate(1, (MotorAll[0]+1000));
+      PWM_Operate(2, (MotorAll[1]+1000));
+      PWM_Operate(3, (MotorAll[2]+1000));
+      PWM_Operate(4, (MotorAll[3]+1000));
     }
   }
 }

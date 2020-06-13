@@ -24,7 +24,7 @@
 #define SCL0()          GPIO_ResetBits(IIC_SCL_GPIO_PORT, IIC_SCL_GPIO_PIN)		//IO口输出低电平
 #define SCL1()          GPIO_SetBits(IIC_SCL_GPIO_PORT, IIC_SCL_GPIO_PIN)		//IO口输出高电平
 
-typedef enum IIC       //DAC模块
+typedef enum IIC       //IIC模块
 {
   IIC,
   SCCB
@@ -36,8 +36,14 @@ void IIC_stop(void);
 void IIC_ack_main(unsigned char ack_main);
 void send_ch(unsigned char c);
 unsigned char read_ch(unsigned char ack);
-void simiic_write_reg(unsigned char dev_add, unsigned char reg, unsigned char dat);
-unsigned char simiic_read_reg(unsigned char dev_add, unsigned char reg, IIC_type type);
-void simiic_read_regs(unsigned char dev_add, unsigned char reg, int *dat_add, unsigned char num, IIC_type type);
+void iic_write_reg(unsigned char dev_add, unsigned char reg, unsigned char dat);
+unsigned char iic_read_reg(unsigned char dev_add, unsigned char reg, IIC_type type);
+void iic_read_regs(unsigned char dev_add, unsigned char reg, int *dat_add, unsigned char num, IIC_type type);
 
 #endif/*SJ_IIC_H*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

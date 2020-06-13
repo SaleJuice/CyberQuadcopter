@@ -14,11 +14,16 @@ extern PosiPidNode HighAPid, HighGPid, HighCPid;
 //电机有关变量
 extern _PYR_Int_ PostureMot;
 extern _XYZ_Int_ NavigationMot;
-extern int Motor[4];
+extern int MotorAll[4];
 
 extern Butter_Parameter Motor_Parameter;
 extern void PidDataInit(void);
-extern void ControlArithmeticInit(void);
 extern void ControlArithmeticDeal(void);
 
 #endif/*app_mcudeal_h*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

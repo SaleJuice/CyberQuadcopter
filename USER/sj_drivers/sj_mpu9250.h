@@ -1,10 +1,13 @@
 //
-//  sj_mpu9250.h
+//  File:	sj_mpu9250.h
 //
 
 #ifndef SJ_MPU9250_H
 #define SJ_MPU9250_H
 
+#include <math.h>
+#include "sj_math.h"
+#include "sj_filter.h"
 #include "sj_iic.h"
 
 // 定义MPU9250内部地址
@@ -111,3 +114,9 @@ void MPU9250_Config(void);//初始化MPU9250
 void MPU9250_DataGet(void);//外部调用，通过_MPU9250DATA_结构体读取信息
 
 #endif/*SJ_MPU9250_H*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

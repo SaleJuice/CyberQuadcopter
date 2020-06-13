@@ -47,3 +47,9 @@ extern void CyberDataInit(void);
 extern void ModuleDataGetAndHandle(void);
 
 #endif/*app_dataget_h*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

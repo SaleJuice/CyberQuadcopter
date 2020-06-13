@@ -1,15 +1,13 @@
 //
-//  sj_mpu9250.c
+//  File:	sj_mpu9250.c
 //
 
 #include "sj_mpu9250.h"
-#include "sj_filter.h"
-#include <math.h>
 
 #define ACC_SENSITIVITY (16.0f / 32767.0f)
 #define GYRO_SENSITIVITY (1000.0f / 32767.0f)
-//采样周期
-#define COUNT_CYCLE 0.005 //秒//0.013785
+
+#define _IMU_DT_ 0.005 //采样周期（单位：s）
 
 // 陀螺仪总结构体
 _MPU9250DATA_ mpudata;
@@ -31,17 +29,6 @@ Butter_Parameter Gyro_Parameter;
 Butter_BufferData gyro_filter_buf_1[3],gyro_filter_buf_2[3];
 Butter_BufferData acc_filter_buf_1[3],acc_filter_buf_2[3];
 
-float invSqrt(float x)
-{
-  float halfx = 0.5f * x;
-  float y = x;
-  long i = *(long*)&y;  
-  i = 0x5f3759df - (i>>1);
-  y = *(float*)&i;
-  y = y * (1.5f - (halfx * y * y));
-  return y;
-}
-
 /*
    @func 初始化MPU9250
    调用该函数前，请先调用模拟IIC的初始化
@@ -59,18 +46,18 @@ float invSqrt(float x)
 */
 void MPU9250_Config(void)
 {
-  unsigned char i2cread = simiic_read_reg(MPU9250_DEV_ADDR, WHO_AM_I, IIC);
-
-  simiic_write_reg(MPU9250_DEV_ADDR, PWR_MGMT_1, 0x00); // 解除休眠状态
-  simiic_write_reg(MPU9250_DEV_ADDR, SMPLRT_DIV, 0x07); // 采样率, 8kHz / (1 + SMPLRT_DIV)
-  simiic_write_reg(MPU9250_DEV_ADDR, MPU_CONFIG, 0x02);
+  unsigned char i2cread = iic_read_reg(MPU9250_DEV_ADDR, WHO_AM_I, IIC);
 	
-	simiic_write_reg(MPU9250_DEV_ADDR, GYRO_CONFIG, 0x10);
-  simiic_write_reg(MPU9250_DEV_ADDR, ACCEL_CONFIG, 0x18);
-  simiic_write_reg(MPU9250_DEV_ADDR, ACCEL_CONFIG2, 0x06); //加速度采样频率460HZ
+  iic_write_reg(MPU9250_DEV_ADDR, PWR_MGMT_1, 0x00); // 解除休眠状态
+  iic_write_reg(MPU9250_DEV_ADDR, SMPLRT_DIV, 0x07); // 采样率, 8kHz / (1 + SMPLRT_DIV)
+  iic_write_reg(MPU9250_DEV_ADDR, MPU_CONFIG, 0x02);
 	
-  simiic_write_reg(MPU9250_DEV_ADDR, USER_CTRL, 0x00);
-  simiic_write_reg(MPU9250_DEV_ADDR, INT_PIN_CFG, 0x02);
+	iic_write_reg(MPU9250_DEV_ADDR, GYRO_CONFIG, 0x10);
+  iic_write_reg(MPU9250_DEV_ADDR, ACCEL_CONFIG, 0x18);
+  iic_write_reg(MPU9250_DEV_ADDR, ACCEL_CONFIG2, 0x06); //加速度采样频率460HZ
+	
+  iic_write_reg(MPU9250_DEV_ADDR, USER_CTRL, 0x00);
+  iic_write_reg(MPU9250_DEV_ADDR, INT_PIN_CFG, 0x02);
 	
 	Set_Cutoff_Frequency(200, 50,&Gyro_Parameter);//姿态角速度反馈滤波参数  50
   Set_Cutoff_Frequency(200, 30,&Accel_Parameter);//姿态解算加计修正滤波值 30
@@ -84,15 +71,15 @@ void GetGyroData(void)
   int dat[6];
   int x, y, z;
 
-  simiic_read_regs(MPU9250_DEV_ADDR, GYRO_XOUT_H, dat, 6, IIC);
+  iic_read_regs(MPU9250_DEV_ADDR, GYRO_XOUT_H, dat, 6, IIC);
 
   x = ((short)((unsigned short)dat[0] << 8 | dat[1]));
   y = ((short)((unsigned short)dat[2] << 8 | dat[3]));
   z = ((short)((unsigned short)dat[4] << 8 | dat[5]));  
   
-	Angle.GyroReal.X = x+23;
-  Angle.GyroReal.Y = y-53;
-  Angle.GyroReal.Z = z-43;
+	Angle.GyroReal.X = x+23;//补偿值
+  Angle.GyroReal.Y = y-53;//补偿值
+  Angle.GyroReal.Z = z-43;//补偿值
 	
 	Angle.GyroFilter1.X=LPButterworth(Angle.GyroReal.X,&gyro_filter_buf_1[0],&Bandstop_Filter_Parameter_30_98);
 	Angle.GyroFilter1.Y=LPButterworth(Angle.GyroReal.Y,&gyro_filter_buf_1[1],&Bandstop_Filter_Parameter_30_98);
@@ -115,7 +102,7 @@ void GetAccData(void)
 {
   int dat[6];
 
-  simiic_read_regs(MPU9250_DEV_ADDR, ACCEL_XOUT_H, dat, 6, IIC);
+  iic_read_regs(MPU9250_DEV_ADDR, ACCEL_XOUT_H, dat, 6, IIC);
   Angle.AccReal.X = (short)((unsigned short)dat[0] << 8 | dat[1]);
   Angle.AccReal.Y = (short)((unsigned short)dat[2] << 8 | dat[3]);
   Angle.AccReal.Z = (short)((unsigned short)dat[4] << 8 | dat[5]);
@@ -139,7 +126,7 @@ void GetTempData(void)
 {
   int dat[2];
 
-  simiic_read_regs(MPU9250_DEV_ADDR, TEMP_OUT_H, dat, 2, IIC);
+  iic_read_regs(MPU9250_DEV_ADDR, TEMP_OUT_H, dat, 2, IIC);
   temp = (short)((unsigned short)dat[0] << 8 | dat[1]);
 }
 void CountAngleGyro(void)
@@ -148,12 +135,12 @@ void CountAngleGyro(void)
   GetAccData();
   GetTempData();
 
-  Pitch.GyroAngle = Pitch.Angle + Angle.Gyro.X * COUNT_CYCLE;
+  Pitch.GyroAngle = Pitch.Angle + Angle.Gyro.X * _IMU_DT_;
   Pitch.Gyro = Angle.Gyro.X;
-  Roll.GyroAngle = Roll.Angle + Angle.Gyro.Y * COUNT_CYCLE;
+  Roll.GyroAngle = Roll.Angle + Angle.Gyro.Y * _IMU_DT_;
   Roll.Gyro = Angle.Gyro.Y;
   //偏航角
-  Yaw.Angle += Angle.Gyro.Z * COUNT_CYCLE;
+  Yaw.Angle += Angle.Gyro.Z * _IMU_DT_;
   Yaw.Gyro = Angle.Gyro.Z;
   //俯仰角
   Pitch.AccAngle = 57.3f*atan(Angle.Acc.Y*invSqrt(Angle.Acc.X*Angle.Acc.X+Angle.Acc.Z*Angle.Acc.Z));
@@ -166,14 +153,22 @@ void CountAngleGyro(void)
 void MPU9250_DataGet(void)
 {
   CountAngleGyro();
-  mpudata.angle_pitch = Pitch.Angle;
-  mpudata.angle_yaw = Yaw.Angle;
-	mpudata.angle_roll = Roll.Angle;
+	mpudata.temperature = temp;
+	
   mpudata.gyro_pitch = Pitch.Gyro;
 	mpudata.gyro_yaw = Yaw.Gyro;
   mpudata.gyro_roll = Roll.Gyro;
-  mpudata.acc_x = Angle.Acc.X;
-  mpudata.acc_y = Angle.Acc.Y;
-  mpudata.acc_z = Angle.Acc.Z;
-  mpudata.temperature = temp;
+  mpudata.acc_x = Angle.Acc.X;//（roll）
+  mpudata.acc_y = Angle.Acc.Y;//（pitch）
+  mpudata.acc_z = Angle.Acc.Z;//（yaw）
+	
+	mpudata.angle_pitch = Pitch.Angle;
+  mpudata.angle_yaw = Yaw.Angle;
+	mpudata.angle_roll = Roll.Angle;
 }
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

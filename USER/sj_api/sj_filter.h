@@ -5,7 +5,8 @@
 #ifndef SJ_FILTER_H
 #define SJ_FILTER_H
 
-#define PI 3.141592653589793f
+#include <math.h>
+#include "sj_math.h"
 
 typedef struct
 {
@@ -27,3 +28,9 @@ extern void Set_Cutoff_Frequency(float sample_frequent, float cutoff_frequent,Bu
 extern float LPButterworth(float curr_input,Butter_BufferData *Buffer,Butter_Parameter *Parameter);
 
 #endif/*SJ_FILTER_H*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

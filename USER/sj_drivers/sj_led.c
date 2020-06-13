@@ -12,6 +12,7 @@ void LED_Config(void)
 	RCC_APB2PeriphClockCmd(LED1_GPIO_RCC, ENABLE);			//使能时钟,stm32配置外设时必须先使能外设时钟
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		//设置成推挽输出(可以输出高低电平)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	
 	GPIO_InitStructure.GPIO_Pin  = LED1_GPIO_PIN;
  	GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
 	
@@ -26,9 +27,9 @@ void LED_Config(void)
 	
 }
 
-void LED_Operate(int led,int a)
+void LED_Operate(int led,int status)
 {
-	if(a == 1)
+	if(status == 1)
 	{
 		switch (led)
 		{
@@ -56,7 +57,7 @@ void LED_Operate(int led,int a)
 			break;
 		}
 	}
-	else if(a == 0)
+	else if(status == 0)
 	{
 		switch (led)
 		{
@@ -85,3 +86,9 @@ void LED_Operate(int led,int a)
 		}
 	}
 }
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

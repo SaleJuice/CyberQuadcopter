@@ -20,6 +20,7 @@
 .\obj\sj_uartmodule.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\obj\sj_uartmodule.o: ..\USER\sj_api\sj_pid.h
 .\obj\sj_uartmodule.o: ..\USER\sj_api\sj_filter.h
+.\obj\sj_uartmodule.o: ..\USER\sj_api\sj_math.h
 .\obj\sj_uartmodule.o: ..\USER\sj_drivers\sj_led.h
 .\obj\sj_uartmodule.o: ..\USER\sj_drivers\sj_key.h
 .\obj\sj_uartmodule.o: ..\USER\sj_drivers\sj_pwm.h

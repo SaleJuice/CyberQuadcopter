@@ -12,3 +12,9 @@ void PWM_Config(void);
 void PWM_Operate(int port,int duty);
 
 #endif /*SJ_PWM_H*/
+
+//
+//  Author:	SaleJuice
+//  Laboratory:	CyberSmartCar
+//  School:	CJLU
+//

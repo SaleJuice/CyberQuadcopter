@@ -19,6 +19,7 @@
 .\obj\main.o: ..\USER\sj_api\sj_iic.h
 .\obj\main.o: ..\USER\sj_api\sj_pid.h
 .\obj\main.o: ..\USER\sj_api\sj_filter.h
+.\obj\main.o: ..\USER\sj_api\sj_math.h
 .\obj\main.o: ..\USER\sj_drivers\sj_led.h
 .\obj\main.o: ..\USER\sj_drivers\sj_key.h
 .\obj\main.o: ..\USER\sj_drivers\sj_pwm.h

@@ -5,6 +5,9 @@
 #ifndef SJ_BMP280_H
 #define SJ_BMP280_H
 
+#include <math.h>
+#include "sj_math.h"
+#include "sj_filter.h"
 #include "sj_iic.h"
 
 #define BMP280_ADDR (0x76)

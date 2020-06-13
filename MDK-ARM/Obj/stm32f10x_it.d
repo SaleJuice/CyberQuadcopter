@@ -20,6 +20,7 @@
 .\obj\stm32f10x_it.o: ..\USER\sj_api\sj_iic.h
 .\obj\stm32f10x_it.o: ..\USER\sj_api\sj_pid.h
 .\obj\stm32f10x_it.o: ..\USER\sj_api\sj_filter.h
+.\obj\stm32f10x_it.o: ..\USER\sj_api\sj_math.h
 .\obj\stm32f10x_it.o: ..\USER\sj_drivers\sj_led.h
 .\obj\stm32f10x_it.o: ..\USER\sj_drivers\sj_key.h
 .\obj\stm32f10x_it.o: ..\USER\sj_drivers\sj_pwm.h
