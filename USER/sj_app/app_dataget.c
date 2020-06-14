@@ -67,6 +67,7 @@ void OffsetDataSet(void)
 
 void ModuleDataHandle(void)
 {
+	//
 	//获取遥控器的各个通道的值
   REMOTEDATA_DataGet(RemoteBuff);
   //获得期望姿态数据
@@ -81,7 +82,7 @@ void ModuleDataHandle(void)
   navigationdata.expectG.y = 0;
   navigationdata.expectG.z = 0;
 	
-	
+	//
 	//获取陀螺仪的角度值、角加速度值、角速度值、温度值
   MPU9250_DataGet();
 	//计算出矫正后的真实角度数据
@@ -93,7 +94,7 @@ void ModuleDataHandle(void)
   posturedata.realG.y = mpudata.gyro_yaw + posturedata.offsetG.y;
   posturedata.realG.r = mpudata.gyro_roll + posturedata.offsetG.r;
 	
-	
+	//
 	//获取激光测距模块的距离值
 	DISTANCEDATA_DataGet(DistanceBuff);
   //计算出矫正后的真实导航数据
@@ -103,7 +104,7 @@ void ModuleDataHandle(void)
 	highspeeddatafuse((float)navigationdata.realA.z,navigationdata.realC.z);
 	navigationdata.realG.z = fusespeed + navigationdata.offsetG.z;
 	
-	
+	//
 	//获取光流的x轴y轴水平移动速度值、图片质量值
   OPTICALFLOW_DataGet(posturedata.realA.p,posturedata.realA.r,navigationdata.realA.z);
 	navigationdata.realG.x = opticalflowdata.delta_x + navigationdata.offsetG.x;

@@ -58,10 +58,10 @@ void UartDataGetAndSend(void)
 	senddata[1]=navigationdata.realG.z;
 	senddata[2]=navigationdata.realC.z;
 	senddata[3]=NavigationMot.z;*/
-	senddata[0]=mpudata.gyro_pitch;
-	senddata[1]=mpudata.angle_yaw;
-	senddata[2]=2;
-	senddata[3]=3;
+	senddata[0]=navigationdata.realG.x;
+	senddata[1]=navigationdata.realG.y;
+	senddata[2]=navigationdata.realG.z;
+	senddata[3]=navigationdata.realA.z;
 	vcan_sendware(REMOTE_USARTx,(uint8_t*)senddata,sizeof(senddata));
 	
 	/*if(opticalflowdata.receive_flag)

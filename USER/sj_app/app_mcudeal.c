@@ -23,7 +23,7 @@ void PidDataInit(void)
 {
 	PosiPidNode Pid_Init;
 	
-	Pid_Init.kp=1;
+	Pid_Init.kp=1.75;
 	Pid_Init.ki=0;
 	Pid_Init.kd=0;
 	Pid_Init.outd_filter_flag=0;
@@ -67,9 +67,9 @@ void PidDataInit(void)
 	Pid_Init.sum_err_limit=80;
   SetPosiPidParm(&HighGPid, Pid_Init);
 	
-	Pid_Init.kp=1.5;
+	Pid_Init.kp=0.75;
 	Pid_Init.ki=0;
-	Pid_Init.kd=0;
+	Pid_Init.kd=0.01;
 	Pid_Init.outd_filter_flag=0;
 	Pid_Init.sum_err_limit=80;
 	SetPosiPidParm(&NavixGPid, Pid_Init);

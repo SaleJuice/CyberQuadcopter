@@ -14,17 +14,16 @@ void LED_Config(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
 	GPIO_InitStructure.GPIO_Pin  = LED1_GPIO_PIN;
- 	GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
+ 	GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);			//初始化LED1
 	
 	GPIO_InitStructure.GPIO_Pin  = LED2_GPIO_PIN;
- 	GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
+ 	GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStructure);			//初始化LED2
 	
 	GPIO_InitStructure.GPIO_Pin  = LED3_GPIO_PIN;
- 	GPIO_Init(LED3_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
+ 	GPIO_Init(LED3_GPIO_PORT, &GPIO_InitStructure);			//初始化LED3
 	
 	GPIO_InitStructure.GPIO_Pin  = LED4_GPIO_PIN;
- 	GPIO_Init(LED4_GPIO_PORT, &GPIO_InitStructure);			//初始化GPIO
-	
+ 	GPIO_Init(LED4_GPIO_PORT, &GPIO_InitStructure);			//初始化LED4
 }
 
 void LED_Operate(int led,int status)
